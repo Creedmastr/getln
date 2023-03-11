@@ -1,4 +1,6 @@
 #![feature(path_as_mut_os_str)]
+#![feature(file_create_new)]
+#![feature(const_mut_refs)]
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
@@ -12,7 +14,7 @@ fn main() -> std::io::Result<()> {
 
     let args: Vec<String> = std::env::args().collect();
 
-    if args[1].ends_with("/") || args[1].ends_with(r"\") {
+    if std::fs::metadata(&args[1]).unwrap().is_dir() {
         // Handles Windows '\' , mostly when using tab completion
         in_dir::dir_ln(&args[1].replace(r"\", "/")).expect("Couldn't read dir");
     } else {
