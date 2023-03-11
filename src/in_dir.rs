@@ -16,9 +16,7 @@ fn path_to_paths(paths: &str) -> std::io::Result<i32> {
         } else {
             // Create a default file used as reference
             if !std::path::Path::new("./foo.txt").exists() {
-                let mut temp_file = File::create("foo.txt")?;
-                temp_file.write_all(b"")?;
-                temp_file.sync_all()?;
+                fs::write("./foo.txt", b"")?
             }
 
             let file = File::open(path.unwrap().path()).unwrap_or(File::open("./foo.txt").unwrap());
@@ -57,9 +55,7 @@ pub fn dir_ln(dir: &String) -> std::io::Result<()> {
         } else {
             // Create a default file used as reference
             if !std::path::Path::new("./foo.txt").exists() {
-                let mut temp_file = File::create("./foo.txt")?;
-                temp_file.write_all(b"")?;
-                temp_file.sync_all()?;
+                fs::write("./foo.txt", b"")?
             }
 
             let file = File::open(path.unwrap().path()).unwrap_or(File::open("./foo.txt").unwrap()); // If the file isn't valid, redirect it to the default file

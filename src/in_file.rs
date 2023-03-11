@@ -1,3 +1,4 @@
+use std::fs;
 use std::io::prelude::*;
 use std::io::Read;
 use std::{fs::File, io::BufReader};
@@ -5,9 +6,7 @@ use std::{fs::File, io::BufReader};
 pub fn f_ln(file: &String) -> std::io::Result<()> {
     // Create a default file used as reference
     if !std::path::Path::new("./foo.txt").exists() {
-        let mut temp_file = File::create("./foo.txt")?;
-        temp_file.write_all(b"")?;
-        temp_file.sync_all()?;
+        fs::write("./foo.txt", b"")?
     }
 
     let file = File::open(file).unwrap_or(File::open("./foo.txt").unwrap()); // Use the default file if the chosen file isn't valid
