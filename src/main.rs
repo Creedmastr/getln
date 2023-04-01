@@ -1,4 +1,3 @@
-#![feature(path_as_mut_os_str)]
 #![feature(file_create_new)]
 #![feature(const_mut_refs)]
 #![allow(dead_code)]
@@ -21,7 +20,7 @@ fn main() -> std::io::Result<()> {
         in_file::f_ln(&args[1].replace(r"\", "/")).expect("Couldn't read file");
     }
 
-    println!("Finished in: {:.2?}", now.elapsed());
+    println!("Finished in: {:.2?}ms", now.elapsed().as_millis());
 
     Ok(())
 }
